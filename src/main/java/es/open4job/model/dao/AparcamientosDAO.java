@@ -17,7 +17,7 @@ public class AparcamientosDAO extends GenericDAO {
 			String password) throws ClassNotFoundException, SQLException {
 		super(driver, url, user, password);
 
-		this.abrirConexion();
+		//this.abrirConexion();
 
 	}
 
@@ -28,6 +28,16 @@ public class AparcamientosDAO extends GenericDAO {
 	// Listado de aparcamientos
 	public List<AparcamientosAccesosVO> getListadoAparcamientos() {
 
+		try {
+			this.abrirConexion();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		List<AparcamientosAccesosVO> aparcamientos = new ArrayList<AparcamientosAccesosVO>();
 
 		String query = "SELECT * FROM APARCAMIENTO_ACCESOS ORDER BY ID";
@@ -70,13 +80,23 @@ public class AparcamientosDAO extends GenericDAO {
 			}
 		}
 
+		this.cerrarConexion();
 		return aparcamientos;
 	}
 
 	// Obtiene los datos de un aparcamiento en concreto
-	public AparcamientosAccesosVO getDatosaparcamiento(int idAparcamiento)
-			throws ClassNotFoundException {
+	public AparcamientosAccesosVO getDatosaparcamiento(int idAparcamiento) {
 
+		try {
+			this.abrirConexion();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		AparcamientosAccesosVO aparcamiento = null;
 		PreparedStatement pstmt = null;
 		ResultSet rst = null;
@@ -117,6 +137,12 @@ public class AparcamientosDAO extends GenericDAO {
 				} catch (Exception e) {
 				}
 			}
+		}
+		try {
+			this.connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return aparcamiento;
 	}

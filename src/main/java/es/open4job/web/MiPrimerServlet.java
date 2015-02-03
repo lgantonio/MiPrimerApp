@@ -1,7 +1,6 @@
 package es.open4job.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -65,11 +64,9 @@ public class MiPrimerServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
+		/*
 		// Vista
 		PrintWriter out = response.getWriter();
 		if (aparcamiento != null) {
@@ -86,8 +83,15 @@ public class MiPrimerServlet extends HttpServlet {
 			out.println("</body>");
 			out.println("</html>");
 		}
-
-		aparcamientosDAO.closeConnection();
+		*/
+		
+		if (aparcamiento != null) {
+			request.setAttribute("AparcamientoVO", aparcamiento);
+			request.getRequestDispatcher("MiPrimerJSP.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("Error.jsp").forward(request, response);
+		}
+			
 	}
 
 	/**
